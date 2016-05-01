@@ -1,0 +1,43 @@
+body{
+	background-image: url('/img/background.png');
+}
+
+p{
+	color: white;
+}
+
+.row-console{
+	margin-top: 7em;
+}
+p.inline {
+	word-wrap: break-word;
+}
+
+#console-output {
+	border-top-style: groove;
+	border-left-style: groove;
+	border-right-style: groove;
+	border-color: rgba(255, 255, 255, .5);
+	padding-bottom:  7em;
+}
+
+.console-inpt{
+	/*border-bottom-style: groove;*/
+	border-left-style: groove;
+	border-right-style: groove;
+	border-bottom-style: groove;	
+	border-color: rgba(255, 255, 255, .5);	
+}
+
+#input-command{
+	display: block; 
+	width: 100%;
+}
+
+#input-submit {
+	visibility: hidden;
+}	
+
+.item {
+	margin-top: 1em;
+}
