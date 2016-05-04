@@ -40,6 +40,9 @@ class Router < Sinatra::Base
 		combat_section.goes_to(Transition.new(:west, 8)) #magrathea
 
 		$current_section = start_section
+		$last_section = start_section
+		$fight_result
+		$from_combat = false
 		$sections = []
 		$sections << start_section << hallway_section	<< combat_section << magrathea_section << win_section << treasure_section << dragon_combat
 
@@ -49,7 +52,6 @@ class Router < Sinatra::Base
 	post '/' do
 		input = params[:command].to_sym		
 		$valid_input = false
-		$from_combat = false
 		res = "<p class = 'inline'> Invalid instruction, fellow Wanderer</p>"
 		res += "<p class = 'inline'> #{$current_section.description}</p>"
 		if input == :stats
@@ -57,13 +59,34 @@ class Router < Sinatra::Base
 			res += "<p class = 'inline'> #{$current_section.description} </p>"
 			return res
 		end
+		if $current_section.is_a? Combat
+			if $from_combat
+				$valid_input = true				
+				$fight_result = $current_section.fight
+				res = "<p class = 'inline'> #{$current_section.description}</p>"
+				$fight_result[:throws].each{|c|res += "<p class = 'inline'> #{c} </p>"}
+				res += "<p class = 'inline'> #{$fight_result[:desc]} </p>"					
+				$from_combat = false
+				$current_section = $last_section
+				if $player.is_dead?
+					res += "<p class = 'inline'>You won't be wandering anymore, fellow Wanderer. You are DEAD.</p>"
+				end
+			end
+		end
 		$current_section.transitions.each do |transition|
 			#valid instruction
 			if transition.instruction == input
-				new_section = search_for(transition.id)				
+				new_section = search_for(transition.id)	
+				$last_section = $current_section			
 				$current_section = new_section if new_section != -1	
 				$valid_input = true
 				res = "<p class = 'inline'> #{$current_section.description} </p>"
+				if $current_section.is_a? Combat
+					if !$from_combat
+						res += "<p class = 'inline'> Press enter to fight! </p>"					
+						$from_combat = true
+					end
+				end
 			end
 		end
 		res

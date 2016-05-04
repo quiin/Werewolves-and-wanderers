@@ -27,23 +27,26 @@ class Combat < Section
     @numberOfCoins = numberOfCoins
     @winningItems = winningItems
     @losingItems = losingItems
+    @coins = []
   end
   
   def fight
     combatNumber = 0
     for n in (0..numberOfCoins-1)
-      combatNumber += @player.flip_coin
+      flip = @player.flip_coin
+      @coins << flip[:desc]
+      combatNumber += flip[:num]
     end
     for c in winnerNumber
       if c == combatNumber
         puts(@winDescription)
         @player.cure(@winningItems[STRENGTH]).loot(@winningItems[GOLD]).kill
-        return ({player: @player, status: 1})
+        return ({player: @player, status: 1, desc: @winDescription, throws: @coins})
       end
     end
     puts(@loseDescription)
     @player.damage(@losingItems[STRENGTH]).lose(@losingItems[GOLD])
-    return {player: @player, status: 0}
+    return ({player: @player, status: 0, desc: @loseDescription, throws: @coins})
   end
   
 end

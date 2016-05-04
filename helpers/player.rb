@@ -18,10 +18,10 @@ class Player
 		val = rand(1000)
 		if(val % 2 == 0)
 			puts "You tossed Heads"
-			0 	#0 is Heads
+			{num:0, desc:"You tossed Heads"} 	#0 is Heads
 		else
 			puts "You tossed Tails"
-			1 	#1 is Tails
+			{num: 1, desc:"You tossed Tails"} 	#1 is Tails
 		end
 	end
 
