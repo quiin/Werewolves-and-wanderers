@@ -32,6 +32,7 @@ class Combat < Section
   
   def fight
     combatNumber = 0
+    @coins = []
     for n in (0..numberOfCoins-1)
       flip = @player.flip_coin
       @coins << flip[:desc]
