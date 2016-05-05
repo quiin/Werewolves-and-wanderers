@@ -5,6 +5,7 @@ require_relative 'helpers/combat'
 
 require 'sinatra/base'
 require 'json'
+$is_dead = false
 
 class Router < Sinatra::Base
 	attr_accessor :player, :sections, :current_section
@@ -70,6 +71,7 @@ class Router < Sinatra::Base
 				$current_section = $last_section
 				if $player.is_dead?
 					res += "<p class = 'inline'>You won't be wandering anymore, fellow Wanderer. You are DEAD.</p>"
+					$is_dead = true
 				end
 			end
 		end
@@ -89,7 +91,11 @@ class Router < Sinatra::Base
 				end
 			end
 		end
-		{desc: res, player: $player}.to_json
+		{desc: res, player: $player, is_dead: $is_dead}.to_json
+	end
+
+	get '/dead' do
+		erb :dead		
 	end
 
 end
