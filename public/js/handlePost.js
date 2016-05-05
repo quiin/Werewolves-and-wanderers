@@ -7,7 +7,10 @@ $('#console-input').submit(function(event){
 		var status = res.is_dead
   	$("#console-output").html(res.desc);
   	$('#input-command').val('');
-  	// $('#health').append('send help');
+  	console.log(player.substring(player.length-))
+  	$('#health').replaceWith(player.health);
+  	$('#wealth').replaceWith(player.wealth);
+  	$('#monster_tally').replaceWith(player.monster_tally);
   	if(status){
   		window.location.replace("/dead");
   	}
