@@ -79,7 +79,7 @@ class Player
 	end
 
 	def to_s
-		"Health: #{health}\nMoneys: #{wealth}\nMonsters Slain: #{monster_tally}"
+		"{health: #{health}, moneys: #{wealth}, monsters_slain: #{monster_tally}}"
 	end
 
 end
