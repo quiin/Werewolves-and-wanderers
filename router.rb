@@ -6,6 +6,7 @@ require_relative 'helpers/combat'
 require 'sinatra/base'
 require 'json'
 $is_dead = false
+$did_win = false
 
 class Router < Sinatra::Base
 	attr_accessor :player, :sections, :current_section
@@ -60,6 +61,9 @@ class Router < Sinatra::Base
 			res += "<p class = 'inline'> #{$current_section.description} </p>"
 			return res
 		end
+		if $current_section.id == 42
+			$did_win = true
+		end
 		if $current_section.is_a? Combat
 			if $from_combat
 				$valid_input = true				
@@ -91,11 +95,15 @@ class Router < Sinatra::Base
 				end
 			end
 		end
-		{desc: res, player: $player, is_dead: $is_dead}.to_json
+		{desc: res, player: $player, is_dead: $is_dead, win: $did_win}.to_json
 	end
 
 	get '/dead' do
 		erb :dead		
+	end
+
+	get '/win' do
+		erb :win	
 	end
 
 end
