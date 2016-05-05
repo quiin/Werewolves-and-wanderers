@@ -4,7 +4,7 @@ require_relative 'helpers/transition'
 require_relative 'helpers/combat'
 
 require 'sinatra/base'
-
+require 'json'
 
 class Router < Sinatra::Base
 	attr_accessor :player, :sections, :current_section
@@ -89,7 +89,7 @@ class Router < Sinatra::Base
 				end
 			end
 		end
-		res
+		{desc: res, player: $player}.to_json
 	end
 
 end

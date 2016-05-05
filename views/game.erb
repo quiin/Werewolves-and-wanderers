@@ -8,7 +8,7 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">  
   <link rel="stylesheet" type="text/css" href="css/console.css">
 </head>
-<body>  
+<body>    
   <nav role="navigation" class="navbar navbar-default navbar-fixed-top">        
     <div class="navbar-header">
       <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
@@ -43,16 +43,13 @@
       </form>
     </div>
   </div>
-  <div class="row row-details">
-    <div class="map col-xs-5">
-      
-    </div>
-    <div class="stats col-xs-7">
-      
-    </div>
-    <div class="inventory col-xs-12">
-      
-    </div>
+  <div class="row row-details">    
+    <div class="stats col-md-offset-4 col-md-4">
+      <h2> Stats</h2>
+      <p> <strong>Health:</strong> <%= player.health %> </p>
+      <p> <strong>Gold:</strong> <%= player.wealth %> </p>
+      <p> <strong>Monsters killed:</strong> <%= player.monster_tally %> </p>
+    </div>    
   </div>
 
   <!-- jQuery -->
