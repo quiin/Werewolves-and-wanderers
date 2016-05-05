@@ -99,7 +99,8 @@ class Router < Sinatra::Base
 	end
 
 	get '/dead' do
-		erb :dead		
+		$is_dead = false
+		erb :dead
 	end
 
 	get '/win' do
