@@ -104,6 +104,11 @@ class Router < Sinatra::Base
 	end
 
 	get '/win' do
+		p = new Wanderer(hp: $player.health, gold: $player.wealth, monstertaly: $player.monstertaly)
+		p.save!
+		name = "Wanderer #{p.id}"
+		p.name = name
+		p.save!
 		erb :win	
 	end
 
